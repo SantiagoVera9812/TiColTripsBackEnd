@@ -11,43 +11,48 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
 
+
 @Entity
-public class Usuario {
+public class Vuelo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter @Setter
-    private Long usuarioID;
+    private Long vueloId;
 
     @Getter @Setter
-    private String nombre;
+    private String lastTicketingDate;
 
     @Getter @Setter
-    private String apellido;
+    private int numeroDeParadas;
 
     @Getter @Setter
-    private String correo;
+    private int numberOfBookableSeats;
 
+    @Getter @Setter 
+    private String validatingAirLineCodes;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "precioId")
     @Getter @Setter
-    private String ciudad;
+    private Precio precio;
 
-    @Getter @Setter
-    private String celular;
-
-    @Getter @Setter
-    private String contrasena;
-
-     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "usuario_vuelo",
-               joinColumns = @JoinColumn(name = "usuarioId"),
-               inverseJoinColumns = @JoinColumn(name = "vueloId"))
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "vueloId") // Adjust this to match your column name
     @JsonIgnore
     @Getter @Setter
-    private List<Vuelo> vuelos = new ArrayList<>();
-    
+    private List<Parada> paradas = new ArrayList<>();
+
+
+      @ManyToMany(mappedBy = "vuelos")
+    @JsonIgnore
+    @Getter @Setter
+    private List<Usuario> usuarios = new ArrayList<>();
 }
+

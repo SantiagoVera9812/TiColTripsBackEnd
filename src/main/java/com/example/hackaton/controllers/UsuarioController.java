@@ -32,6 +32,15 @@ public class UsuarioController {
         }
     }
 
+    @PostMapping("/conseguir-info-usuario")
+    public Usuario usuario( @RequestParam String correo,
+    @RequestParam String contraseña) {
+
+        Usuario usuario = usuarioService.conseguirUsuario(correo, contraseña);
+        return usuario;
+    }
+    
+
     @PostMapping("/inicio-sesion")
     public ResponseEntity<Boolean> verificarUsuario(
             @RequestParam String correo,
