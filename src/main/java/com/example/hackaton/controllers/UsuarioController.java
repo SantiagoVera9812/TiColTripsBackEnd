@@ -1,5 +1,7 @@
 package com.example.hackaton.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.hackaton.DTO.UsuarioDTO;
 import com.example.hackaton.modelo.Usuario;
+import com.example.hackaton.modelo.Vuelo;
 import com.example.hackaton.services.UsuarioService;
+import com.example.hackaton.services.VueloService;
 
 
 @RestController
@@ -19,6 +23,9 @@ public class UsuarioController {
 
     @Autowired
     UsuarioService usuarioService;
+
+    @Autowired
+    VueloService vueloService;
 
     @PostMapping("/registro-usuario")
     public Usuario insertar(@RequestBody UsuarioDTO usuarioDTO) {
@@ -38,6 +45,13 @@ public class UsuarioController {
 
         Usuario usuario = usuarioService.conseguirUsuario(correo, contraseña);
         return usuario;
+    }
+
+    @PostMapping("/vuelos-del-usuario")
+    public List<Vuelo> listarUsuaioVuelos(@RequestParam Long usuarioId){
+
+        List<Vuelo> listaVuelos = usuarioService.listarVuelosUsuario(usuarioId);
+        return listaVuelos;
     }
     
 
