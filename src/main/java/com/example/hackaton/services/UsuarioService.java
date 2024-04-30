@@ -1,18 +1,25 @@
 package com.example.hackaton.services;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.hackaton.DTO.UsuarioDTO;
 import com.example.hackaton.modelo.Usuario;
+import com.example.hackaton.modelo.Vuelo;
 import com.example.hackaton.repositories.UsuarioRepository;
+import com.example.hackaton.repositories.VueloRepository;
 
 @Service
 public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private VueloRepository vueloRepository;
 
     @Autowired
     ModelMapper modelMapper;
@@ -42,6 +49,12 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository.findByCorreoAndContrasena(correo, password);
         return usuario;
 
+    }
+
+    public List<Vuelo> listarVuelosUsuario(Long numeroId){
+
+        List<Vuelo> vuelosDelUsuario = vueloRepository.findByUsuarioId(numeroId);
+        return vuelosDelUsuario;
     }
     
 }
