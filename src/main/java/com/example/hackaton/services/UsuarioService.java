@@ -37,5 +37,11 @@ public class UsuarioService {
         return usuario != null;
 
     }
+
+    public Usuario conseguirUsuario(String correo, String password){
+        Usuario usuario = usuarioRepository.findByCorreoAndContrasena(correo, password);
+        return usuario;
+
+    }
     
 }

@@ -1,5 +1,7 @@
 package com.example.hackaton.DTO;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,5 +24,8 @@ public class UsuarioDTO {
 
     @Getter @Setter
     private String contrasena;
+
+    @Getter @Setter
+    private List<VueloDTO> vuelos;
    
 }
